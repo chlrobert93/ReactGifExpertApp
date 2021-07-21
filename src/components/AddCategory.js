@@ -1,8 +1,11 @@
-import React,{ useState} from 'react'
+import React,{ useState} from 'react';
+import PropTypes from 'prop-types';
 
-export const AddCategory = () => {
+
+
+export const AddCategory = ({setCategories}) => {
     //Saber lo que la persona esta escribiendo
-    const [inputVlue, setInputValue] = useState('Hola Mundo');
+    const [inputVlue, setInputValue] = useState('');
    //const handleInputChange = ({ target: { value } }) => setInputValue(value);
 
     const handleInputChange = (e) => {
@@ -13,7 +16,11 @@ export const AddCategory = () => {
     const handleSubmit = (e) => {
         //Prevenir el comportamiento por defecto del formulario es
         e.preventDefault();
-       console.log('Submit hecho')
+
+        if( inputVlue.trim().length >2){
+            setCategories( cats => [ ...cats, inputVlue]);
+        }
+   
     }
     
     return (
@@ -23,4 +30,9 @@ export const AddCategory = () => {
         </form>
      
     );
+}
+
+AddCategory.propTypes =  {
+    setCategories: PropTypes.func.isRequired 
+
 }
